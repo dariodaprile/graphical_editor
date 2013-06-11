@@ -1,16 +1,18 @@
 class Image
-  attr_reader :height, :width, :colour
+  attr_reader :height, :width
 
-  def initialize(width, height, colour = "O")
-    @width, @height, @colour = width, height, colour
-    @canvas = Array.new(height){Array.new(width){colour}}
+  DEFAULT_COLOUR = "O"
+
+  def initialize(width, height)
+    @width, @height = width, height
+    @canvas = Array.new(height){Array.new(width){DEFAULT_COLOUR}}
   end
 
   def to_image
     @canvas.map{|i| i.join }.join("\n")
   end
 
-  def colour_pixel(x,y, colour = "O")
+  def colour_pixel(x,y, colour)
     @canvas[y-1][x-1] = colour
   end
 
@@ -23,23 +25,35 @@ class Image
   end
 
   def fill(x,y,new_colour)
-    original_colour = colour_pixel(x,y,colour)
+    original_colour = pixel_at(x,y)
     recursive_fill(x,y,new_colour,original_colour)
+  end
+
+    def adjacent (x,y)
+     a = (y-1..y+1).map do |ay|
+      (x-1..x+1).map do |ax|
+        [ax, ay] if ax.between?(1, width) &&  ay.between?(1, height)
+        end
+      end
+        b = (a.flatten(1)-[[x,y]]).delete_if {|x| x == nil}
+  end
+
+  def pixel_at(x,y)
+    @canvas[y-1][x-1]
   end
 
   # private
 
   def recursive_fill(x,y,new_colour,original_colour)
     colour_pixel(x,y,new_colour)
-    adjacent(x,y).each do |px|
-      recursive_fillh(x[px], y[px], new_colour, original_colour)
-      if colour(x[px], y[px]) == original_colour
+    adjacent(x,y).each do |pair|
+      pixel_x, pixel_y = pair
+      if pixel_at(pixel_x, pixel_y) == original_colour
+        recursive_fill(pixel_x, pixel_y, new_colour, original_colour)
       end
     end
   end
 
-  def adjacent (x,y)
-    (y-1..y+1).map { |ay| (x-1..x+1).map { |ax| [ax, ay] } }
-  end
+
 
 end

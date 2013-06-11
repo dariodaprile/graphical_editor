@@ -13,8 +13,8 @@ class ImageTest < MiniTest::Unit::TestCase
     assert_equal 6, @image.height
   end
 
-  def test_set_default_colour
-    assert_equal "O", @image.colour
+  def test_get_default_colour
+    assert_equal "O", Image::DEFAULT_COLOUR
   end
 
   def test_each_pixel_is_white_by_default
@@ -37,13 +37,22 @@ class ImageTest < MiniTest::Unit::TestCase
   end
 
   def test_fill_the_region
+    # skip
     @image.colour_vertical_segment(2,3,4,"W")
     @image.colour_horizontal_segment(3,4,2,"Z")
     @image.fill(3,3,"J")
     assert_equal "JJJJJ\nJJZZJ\nJWJJJ\nJWJJJ\nJJJJJ\nJJJJJ", @image.to_image
   end
 
+  def test_adjacent_pixels
+    assert_equal [[2, 1],[1, 2],[2,2]], @image.adjacent(1,1)
+  end
 
+  def test_can_get_value_of_a_specific_pixel
+    assert_equal "O", @image.pixel_at(2,3)
+    @image.colour_pixel(2,3,"A")
+    assert_equal "A", @image.pixel_at(2,3)
+  end
 
 
 end
