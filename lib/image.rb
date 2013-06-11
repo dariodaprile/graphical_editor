@@ -1,23 +1,21 @@
 class Image
+  attr_reader :height, :width, :colour
 
-  attr_accessor :width, :height, :colour, :image
-
-  def initialize (width, height, colour = "O")
+  def initialize(width, height, colour = "O")
     @width = width
     @height = height
     @colour = colour
+    @canvas = Array.new(height){Array.new(width){colour}}
   end
 
   def to_image
-    @pixel_array = Array.new(@width * @height)
-    @pixel_array_of_colours = @pixel_array.map{|i| @colour}
-    @images = @pixel_array_of_colours.join.scan(/.{5}/).join("\n")
+    @canvas.map{|i| i.join }.join("\n")
   end
 
-  def change_color(x,y,colour)
-    # a = to_image.split(/\n/)
-    # b = a[y-1][x-1]
-    # b.gsub!("O",colour)
+  def colour_pixel(x,y,colour)
+    @canvas[y-1] [x-1] = colour
   end
+
+
 
 end

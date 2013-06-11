@@ -24,9 +24,9 @@ class ImageTest < MiniTest::Unit::TestCase
     # prepare the object
     @image = Image.new(5,6)
     # do the action
-    @image.change_color(2,3,"A")
+    @image.colour_pixel(2,3,"A")
     # check the result
-     assert_equal "OOOOO\nOOOOO\nOAOOO\nOOOOO\nOOOOO\nOOOOO", @image.to_image
+    assert_equal "OOOOO\nOOOOO\nOAOOO\nOOOOO\nOOOOO\nOOOOO", @image.to_image
   end
 
 
