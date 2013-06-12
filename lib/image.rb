@@ -29,13 +29,17 @@ class Image
     recursive_fill(x,y,new_colour,original_colour)
   end
 
-    def adjacent (x,y)
+    def adjacent(x,y)
      a = (y-1..y+1).map do |ay|
       (x-1..x+1).map do |ax|
         [ax, ay] if ax.between?(1, width) &&  ay.between?(1, height)
         end
       end
         b = (a.flatten(1)-[[x,y]]).delete_if {|x| x == nil}
+  end
+
+  def adjacentb(x,y)
+    [-1,0,1].repeated_permutation(2).map{|pair| [pair[0]+x, pair[1]+y]}
   end
 
   def pixel_at(x,y)
