@@ -45,11 +45,11 @@ class ImageTest < MiniTest::Unit::TestCase
   end
 
   def test_adjacent_pixels
-    assert_equal [[2, 1],[1, 2],[2,2]], @image.adjacent(1,1)
+    assert_equal [[1, 2], [2, 1], [2, 2]], @image.adjacent(1,1).sort
   end
 
    def test_adjacentb_pixels
-    assert_equal [[2, 1],[1, 2],[2,2]], @image.adjacentb(1,1)
+    assert_equal [[1, 2], [2, 1], [2, 2]], @image.adjacentb(1,1).sort
   end
 
   def test_can_get_value_of_a_specific_pixel
