@@ -3,7 +3,7 @@ class Image
 
   DEFAULT_COLOUR = "O"
 
-  def initialize(width, height)
+  def initialize(width = 5, height = 6)
     @width, @height = width, height
     @canvas = Array.new(height){Array.new(width){DEFAULT_COLOUR}}
   end
@@ -29,24 +29,20 @@ class Image
     recursive_fill(x,y,new_colour,original_colour)
   end
 
-    def adjacent(x,y)
-     a = (y-1..y+1).map do |ay|
-      (x-1..x+1).map do |ax|
-        [ax, ay] if ax.between?(1, width) &&  ay.between?(1, height)
-        end
-      end
-        b = (a.flatten(1)-[[x,y]]).delete_if {|x| x == nil}
-  end
+  def adjacent(x,y)
+    offsets = [-1,0,1].repeated_permutation(2)
+    candidates = offsets.map{|pair| [pair[0]+x, pair[1]+y]} - [[x,y]]
+    candidates.select do |pair|
+      pair.first.between?(1, width) && pair.last.between?(1, height)
 
-  def adjacentb(x,y)
-    [-1,0,1].repeated_permutation(2).map{|pair| [pair[0]+x, pair[1]+y]}
+    end
   end
 
   def pixel_at(x,y)
     @canvas[y-1][x-1]
   end
 
-  # private
+private
 
   def recursive_fill(x,y,new_colour,original_colour)
     colour_pixel(x,y,new_colour)
@@ -57,7 +53,4 @@ class Image
       end
     end
   end
-
-
-
 end

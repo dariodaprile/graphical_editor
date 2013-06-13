@@ -48,10 +48,6 @@ class ImageTest < MiniTest::Unit::TestCase
     assert_equal [[1, 2], [2, 1], [2, 2]], @image.adjacent(1,1).sort
   end
 
-   def test_adjacentb_pixels
-    assert_equal [[1, 2], [2, 1], [2, 2]], @image.adjacentb(1,1).sort
-  end
-
   def test_can_get_value_of_a_specific_pixel
     assert_equal "O", @image.pixel_at(2,3)
     @image.colour_pixel(2,3,"A")
