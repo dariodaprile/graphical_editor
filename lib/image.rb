@@ -3,7 +3,7 @@ class Image
 
   DEFAULT_COLOUR = "O"
 
-  def initialize(width = 5, height = 6)
+  def initialize(width, height )
     @width, @height = width, height
     @canvas = Array.new(height){Array.new(width){DEFAULT_COLOUR}}
   end

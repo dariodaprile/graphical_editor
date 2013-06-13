@@ -16,19 +16,17 @@ class CommandLineTest < Test::Unit::TestCase
     @commandline.execute "X"
   end
 
-  # def test_user_can_create_image
-  #   #prepare the object
-  #   commandline = CommandLine.new
-  #   mock_image = Minitest::Mock.new
-  #   mock_image.expect(:show)
-  #   commandline.stub :image, mock_image do
-  #     commandline.run
-  #   end
-  #   mock_image.verify
-  #   #do the action
-  #   #check the result
+  def test_commandline_can_create_an_empty_image
+    refute @commandline.image
+    @commandline.execute("I 5 6")
+    assert @commandline.image.is_a?(Image)
+  end
 
-  # end
+   def test_can_show_an_image
+    @commandline.execute("I 5 6")
+    @commandline.image.expects(:to_image)
+    @commandline.execute("S")
+  end
 
 
 end
