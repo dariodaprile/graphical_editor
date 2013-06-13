@@ -12,7 +12,7 @@ class Image
     @canvas.map{|i| i.join }.join("\n")
   end
 
-  def colour_pixel(x,y, colour)
+  def colour_pixel(x,y,colour)
     @canvas[y-1][x-1] = colour
   end
 

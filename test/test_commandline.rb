@@ -28,5 +28,37 @@ class CommandLineTest < Test::Unit::TestCase
     @commandline.execute("S")
   end
 
+  def test_can_colour_a_pixel
+    @commandline.execute("I 5 6") #must instantiate image
+    @commandline.image.expects(:colour_pixel)
+    @commandline.execute("L 2 3 C")
+  end
+
+  def test_can_colour_a_column
+    @commandline.execute("I 5 6") #must instantiate image
+    @commandline.image.expects(:colour_vertical_segment)
+    @commandline.execute("V 2 3 4 W")
+  end
+
+  def test_can_colour_a_row
+    @commandline.execute("I 5 6") #must instantiate image
+    @commandline.image.expects(:colour_horizontal_segment)
+    @commandline.execute("H 3 4 2 Z")
+  end
+
+  def test_can_colour_a_region
+    @commandline.execute("I 5 6") #must instantiate image
+    @commandline.image.expects(:fill)
+    @commandline.execute("F 3 3 J")
+  end
+
+  def test_unrecognised_command
+    @commandline.expects(:unrecognised)
+    @commandline.execute("Whatever")
+  end
+
+  # def test_execute_command
+  #   assert_equal :quit, @commandline.execute("X")
+  # end
 
 end
