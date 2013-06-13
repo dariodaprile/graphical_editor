@@ -6,6 +6,7 @@ require 'mocha/setup'
 
 
 class CommandLineTest < Test::Unit::TestCase
+
   def setup
     @commandline = CommandLine.new
   end
@@ -21,8 +22,6 @@ class CommandLineTest < Test::Unit::TestCase
     mock_image.verify
     #do the action
     #check the result
-
   end
-
 
 end

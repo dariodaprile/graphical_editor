@@ -34,7 +34,6 @@ class Image
     candidates = offsets.map{|pair| [pair[0]+x, pair[1]+y]} - [[x,y]]
     candidates.select do |pair|
       pair.first.between?(1, width) && pair.last.between?(1, height)
-
     end
   end
 
@@ -42,7 +41,7 @@ class Image
     @canvas[y-1][x-1]
   end
 
-private
+  private
 
   def recursive_fill(x,y,new_colour,original_colour)
     colour_pixel(x,y,new_colour)
@@ -53,4 +52,5 @@ private
       end
     end
   end
+
 end
