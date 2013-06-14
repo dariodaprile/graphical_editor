@@ -1,6 +1,5 @@
 require_relative 'image'
 
-
 class CommandLine
 
   attr_reader :image
@@ -16,18 +15,29 @@ class CommandLine
     /^\s*X\s*$/i => :quit,
   }
 
-  puts "Type 'I' followed by the width and height (integers) to create an image >"
-  input = gets.chomp
+  def execute (input)
+    puts "Welcome to the graphical editor!"
+    print "> "
 
-  if input[/I/]
-    a = input.split(' ')
-    width, height = a[1].to_i, a[2].to_i
-    puts "variable created"
-    @image  = Image.new(width, height)
-    puts "great we have the image"
-    elsecommandline
-      puts "The first input should be I, by Charlotte."
-    end
+    regex = COMMANDS.keys.find{|regex| regex =~ input }
+    matches = regex.match(input).to_a
+    command = COMMANDS[regex]
+    arguments = matches.slice(1, matches.length - 1)
+    [command, *arguments]
+  end
+
+  # puts "Type 'I' followed by the width and height (integers) to create an image >"
+  # input = gets.chomp
+
+  # if input[/I/]
+  #   a = input.split(' ')
+  #   width, height = a[1].to_i, a[2].to_i
+  #   puts "variable created"
+  #   @image  = Image.new(width, height)
+  #   puts "great we have the image"
+  #   elsecommandline
+  #     puts "The first input should be I, by Charlotte."
+  #   end
 
 # def run
 #     image.show
